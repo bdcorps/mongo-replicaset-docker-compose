@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  mongo1:
+    image: mongo
+    command: ["--replSet", "sssaini.repl"]
+    ports: 
+        - "27017:27017"
+    networks:
+      - repl.net
+    extra_hosts:
+      - "mongo4:161.35.136.239"
+    depends_on:
+      - mongo2
+      - mongo3
+
+  mongo2:
+    image: mongo 
+    command: ["--replSet", "sssaini.repl"]
+    ports: 
+        - "27020:27017"
+    extra_hosts:
+      - "mongo4:161.35.136.239"
+    networks:
+      - repl.net
+
+  mongo3:
+    image: mongo
+    command: ["--replSet", "sssaini.repl"]
+    ports: 
+        - "27023:27017"
+    extra_hosts:
+      - "mongo4:161.35.136.239"
+    networks:
+      - repl.net
+networks:
+  repl.net:
