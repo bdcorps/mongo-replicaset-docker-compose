@@ -6,8 +6,13 @@ services:
     command: ["--replSet", "my.repl"]
     ports: 
         - "27017:27017"
+    extra_hosts:
+      - "mongo4:161.35.136.239"
     networks:
       - my-network
+    depends_on:
+      - mongo2
+      - mongo3
 
   mongo2:
     image: mongo 
